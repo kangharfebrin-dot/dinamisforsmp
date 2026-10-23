@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Environment files
+.env
+.env.backup
+.env.production
+*.env
+
+# Laravel specific
+frontend/storage/*.key
+frontend/storage/framework/cache/data/*
+!frontend/storage/framework/cache/data/.gitignore
+frontend/storage/framework/sessions/*
+!frontend/storage/framework/sessions/.gitignore
+frontend/storage/framework/views/*
+!frontend/storage/framework/views/.gitignore
+frontend/storage/logs/*
+!frontend/storage/logs/.gitignore
+frontend/public/storage
+frontend/public/build
+frontend/public/hot
+frontend/public/fonts-manifest.dev.json
+.phpunit.result.cache
+.phpunit.cache/
+
+# Uploads
+backend/public/uploads/*
+!backend/public/uploads/.gitkeep
+
+# Logs and databases
+*.log
+*.sqlite
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.zed/
+.nova/
+.codex/
+.cursor/
