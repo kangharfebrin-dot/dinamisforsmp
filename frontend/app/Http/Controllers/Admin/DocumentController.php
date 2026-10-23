@@ -36,7 +36,7 @@ class DocumentController extends Controller
             return back()->withInput()->with('error', $res->json('message') ?? 'Gagal mengunggah dokumen.');
         }
 
-        return redirect()->route('admin.unduhan.index')->with('success', 'Dokumen berhasil diunggah.');
+        return redirect()->route('admin.dokumen.index')->with('success', 'Dokumen berhasil diunggah.');
     }
 
     public function destroy($id, ApiClient $api)
@@ -48,6 +48,6 @@ class DocumentController extends Controller
             return back()->with('error', $res->json('message') ?? 'Gagal menghapus dokumen.');
         }
 
-        return redirect()->route('admin.unduhan.index')->with('success', 'Dokumen berhasil dihapus.');
+        return redirect()->route('admin.dokumen.index')->with('success', 'Dokumen berhasil dihapus.');
     }
 }

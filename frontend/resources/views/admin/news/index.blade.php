@@ -32,7 +32,13 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
-                    @forelse($posts as $post)
+                    @php
+                        $items = $posts ?? $news ?? [];
+                        if (!is_iterable($items)) {
+                            $items = [];
+                        }
+                    @endphp
+                    @forelse($items as $post)
                     <tr class="hover:bg-slate-50/60 transition-colors">
                         <td class="py-4 px-6">
                             <div class="flex items-center gap-3">

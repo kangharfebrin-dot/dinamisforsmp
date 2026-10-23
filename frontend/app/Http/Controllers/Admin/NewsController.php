@@ -24,8 +24,9 @@ class NewsController extends Controller
         $meta = $response->json('meta') ?? ['page' => 1, 'total' => 0, 'total_pages' => 1];
 
         $categories = $api->get('news/categories')->json('data') ?? [];
+        $posts = $news;
 
-        return view('admin.news.index', compact('news', 'meta', 'categories'));
+        return view('admin.news.index', compact('posts', 'news', 'meta', 'categories'));
     }
 
     public function create(ApiClient $api)
@@ -46,11 +47,11 @@ class NewsController extends Controller
 
         $token = session('api_token');
         $data = [
-            'title' => $request->title,
-            'category_id' => $request->category_id,
-            'excerpt' => $request->excerpt,
-            'content' => $request->content,
-            'status' => $request->status,
+            'title' => $request->input('title'),
+            'category_id' => $request->input('category_id'),
+            'excerpt' => $request->input('excerpt'),
+            'content' => $request->input('content'),
+            'status' => $request->input('status'),
         ];
 
         if ($request->hasFile('cover_image')) {
@@ -90,11 +91,11 @@ class NewsController extends Controller
 
         $token = session('api_token');
         $data = [
-            'title' => $request->title,
-            'category_id' => $request->category_id,
-            'excerpt' => $request->excerpt,
-            'content' => $request->content,
-            'status' => $request->status,
+            'title' => $request->input('title'),
+            'category_id' => $request->input('category_id'),
+            'excerpt' => $request->input('excerpt'),
+            'content' => $request->input('content'),
+            'status' => $request->input('status'),
         ];
 
         if ($request->hasFile('cover_image')) {

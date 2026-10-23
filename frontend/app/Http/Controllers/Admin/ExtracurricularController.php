@@ -52,7 +52,8 @@ class ExtracurricularController extends Controller
         if (!$item) {
             return redirect()->route('admin.ekstrakurikuler.index')->with('error', 'Ekstrakurikuler tidak ditemukan.');
         }
-        return view('admin.extracurriculars.form', compact('item'));
+        $extracurricular = $item;
+        return view('admin.extracurriculars.form', compact('extracurricular', 'item'));
     }
 
     public function update(Request $request, $id, ApiClient $api)
