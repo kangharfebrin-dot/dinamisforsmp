@@ -114,23 +114,31 @@
                                 </p>
                             </div>
 
-                            <!-- Quick Fast Stats Grid -->
+                            <!-- Quick Fast Stats Grid (Dynamic from Database) -->
                             <div class="grid grid-cols-2 gap-3 pt-1">
                                 <div class="bg-blue-950/60 p-3 rounded-xl border border-blue-900/40 text-center">
-                                    <span class="block text-2xl font-extrabold text-amber-400">480+</span>
-                                    <span class="text-xs text-slate-300 font-medium">Siswa Aktif</span>
+                                    <span class="block text-2xl font-extrabold text-amber-400">
+                                        {{ ($stats['total_teachers'] ?? 0) + ($stats['total_staff'] ?? 0) }}
+                                    </span>
+                                    <span class="text-xs text-slate-300 font-medium">Pendidik & Tendik</span>
                                 </div>
                                 <div class="bg-blue-950/60 p-3 rounded-xl border border-blue-900/40 text-center">
-                                    <span class="block text-2xl font-extrabold text-white">32</span>
-                                    <span class="text-xs text-slate-300 font-medium">Guru & Tendik</span>
+                                    <span class="block text-2xl font-extrabold text-white">
+                                        {{ $stats['total_fasilitas'] ?? 0 }}
+                                    </span>
+                                    <span class="text-xs text-slate-300 font-medium">Fasilitas Utama</span>
                                 </div>
                                 <div class="bg-blue-950/60 p-3 rounded-xl border border-blue-900/40 text-center">
-                                    <span class="block text-2xl font-extrabold text-white">15+</span>
-                                    <span class="text-xs text-slate-300 font-medium">Rombel & Lab</span>
+                                    <span class="block text-2xl font-extrabold text-white">
+                                        {{ $stats['total_ekskul'] ?? 0 }}
+                                    </span>
+                                    <span class="text-xs text-slate-300 font-medium">Ekstrakurikuler</span>
                                 </div>
                                 <div class="bg-blue-950/60 p-3 rounded-xl border border-blue-900/40 text-center">
-                                    <span class="block text-2xl font-extrabold text-emerald-400">"A"</span>
-                                    <span class="text-xs text-slate-300 font-medium">Akreditasi BAN-SM</span>
+                                    <span class="block text-2xl font-extrabold text-emerald-400">
+                                        {{ $profile['accreditation'] ?? 'A' }}
+                                    </span>
+                                    <span class="text-xs text-slate-300 font-medium">Akreditasi BAN-S/M</span>
                                 </div>
                             </div>
                         </div>
@@ -150,9 +158,19 @@
                         <div class="relative inline-block">
                             <!-- Background decoration -->
                             <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl bg-gradient-to-tr from-blue-900 to-amber-400 p-1.5 shadow-xl">
-                                <div class="w-full h-full rounded-2xl bg-slate-200 overflow-hidden flex items-center justify-center text-slate-400">
-                                    <!-- Fallback avatar if photo not uploaded -->
-                                    <svg class="w-24 h-24 text-slate-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                                <div class="w-full h-full rounded-2xl bg-slate-100 overflow-hidden flex items-center justify-center text-slate-400">
+                                    @if(!empty($profile['principal_photo']))
+                                        <img src="{{ \App\Services\ApiClient::assetUrl($profile['principal_photo']) }}" alt="{{ $profile['principal_name'] ?? 'Kepala Sekolah' }}" class="w-full h-full object-cover">
+                                    @else
+                                        <!-- Fallback logo/crest if photo not uploaded to avoid fabricating faces -->
+                                        <div class="flex flex-col items-center justify-center p-4 text-center">
+                                            <div class="w-16 h-16 rounded-2xl bg-blue-900 text-amber-300 flex items-center justify-center font-extrabold text-lg shadow-sm mb-2">
+                                                SMPN 2
+                                            </div>
+                                            <span class="text-xs font-bold text-slate-700">Pimpinan Sekolah</span>
+                                            <span class="text-[10px] text-slate-400">SMPN 2 Juwangi</span>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                             <span class="absolute -bottom-3 left-1/2 transform -translate-x-1/2 bg-blue-950 text-amber-300 text-xs font-bold px-4 py-1.5 rounded-full shadow-md whitespace-nowrap border border-blue-800">
@@ -160,8 +178,10 @@
                             </span>
                         </div>
                         <div class="mt-6">
-                            <h3 class="text-lg font-bold text-slate-900">{{ $profile['principal_name'] ?? 'Drs. H. Mulyono, M.Pd.' }}</h3>
-                            <p class="text-xs text-slate-500 font-medium mt-0.5">NIP: {{ $profile['principal_nip'] ?? '19680512 199403 1 005' }}</p>
+                            <h3 class="text-lg font-bold text-slate-900">{{ $profile['principal_name'] ?? 'Kepala SMP Negeri 2 Juwangi' }}</h3>
+                            @if(!empty($profile['principal_nip']) && $profile['principal_nip'] !== '-')
+                                <p class="text-xs text-slate-500 font-medium mt-0.5">NIP: {{ $profile['principal_nip'] }}</p>
+                            @endif
                         </div>
                     </div>
 

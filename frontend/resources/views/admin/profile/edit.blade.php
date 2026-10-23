@@ -54,17 +54,17 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                         <label for="email" class="block font-bold text-slate-700 uppercase tracking-wider text-[11px] mb-2">Email Resmi Sekolah</label>
-                        <input type="email" id="email" name="email" value="{{ old('email', $profile['email'] ?? 'info@smpn2juwangi.sch.id') }}" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 text-xs font-medium">
+                        <input type="email" id="email" name="email" value="{{ old('email', $profile['email'] ?? 'smpn2juwang@gmail.com') }}" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 text-xs font-medium">
                     </div>
 
                     <div>
-                        <label for="phone" class="block font-bold text-slate-700 uppercase tracking-wider text-[11px] mb-2">Nomor Telepon / WhatsApp</label>
-                        <input type="text" id="phone" name="phone" value="{{ old('phone', $profile['phone'] ?? '(0276) 329xxxx') }}" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 text-xs font-medium">
+                        <label for="phone" class="block font-bold text-slate-700 uppercase tracking-wider text-[11px] mb-2">Nomor Telepon / Kontak</label>
+                        <input type="text" id="phone" name="phone" value="{{ old('phone', $profile['phone'] ?? '085642696466') }}" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 text-xs font-medium">
                     </div>
 
                     <div class="sm:col-span-2">
                         <label for="address" class="block font-bold text-slate-700 uppercase tracking-wider text-[11px] mb-2">Alamat Lengkap</label>
-                        <textarea id="address" name="address" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 text-xs font-normal">{{ old('address', $profile['address'] ?? 'Jl. Raya Juwangi, Kec. Juwangi, Kab. Boyolali, Jawa Tengah') }}</textarea>
+                        <textarea id="address" name="address" rows="2" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-600 text-xs font-normal">{{ old('address', $profile['address'] ?? 'Jl. Kayen Baru No. 1, Desa Kayen, Kec. Juwangi, Kab. Boyolali, Jawa Tengah 57391') }}</textarea>
                     </div>
 
                     <div class="sm:col-span-2">

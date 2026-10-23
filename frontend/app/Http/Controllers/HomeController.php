@@ -13,12 +13,13 @@ class HomeController extends Controller
             'name' => 'SMP Negeri 2 Juwangi',
             'npsn' => '20308482',
             'tagline' => 'Cerdas, Berkarakter, Berakhlak Mulia, dan Berprestasi',
-            'address' => 'Jl. Raya Juwangi - Kedungombo Km. 2, Juwangi, Boyolali, Jawa Tengah 57391',
-            'phone' => '(0298) 610023',
-            'email' => 'info@smpn2juwangi.sch.id',
-            'principal_name' => 'Drs. H. Mulyono, M.Pd.',
-            'principal_nip' => '19680512 199403 1 005',
-            'principal_message' => 'Selamat datang di portal resmi SMP Negeri 2 Juwangi. Kami berkomitmen untuk menyelenggarakan pendidikan holistik yang membina akhlak dan keunggulan masa depan.',
+            'address' => 'Jl. Kayen Baru No. 1, Desa Kayen, Kec. Juwangi, Kab. Boyolali, Jawa Tengah 57391',
+            'phone' => '085642696466',
+            'email' => 'smpn2juwang@gmail.com',
+            'accreditation' => 'A',
+            'principal_name' => 'Kepala SMP Negeri 2 Juwangi',
+            'principal_nip' => '-',
+            'principal_message' => 'Selamat datang di portal informasi resmi SMP Negeri 2 Juwangi, Boyolali. Kami berkomitmen menyelenggarakan ekosistem pendidikan yang humanis, berkarakter, dan berdaya saing bagi seluruh generasi bangsa.',
         ];
 
         $news = $api->get('news', ['limit' => 4, 'status' => 'published'])->json('data') ?? [];

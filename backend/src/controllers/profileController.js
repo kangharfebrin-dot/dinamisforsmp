@@ -6,7 +6,11 @@ exports.getProfile = async (req, res, next) => {
     if (!rows.length) {
       return res.status(404).json({ success: false, message: 'Profil sekolah belum diatur.' });
     }
-    res.json({ success: true, data: rows[0] });
+    const profile = rows[0];
+    if (!profile.accreditation) {
+      profile.accreditation = 'A';
+    }
+    res.json({ success: true, data: profile });
   } catch (err) {
     next(err);
   }
@@ -15,7 +19,7 @@ exports.getProfile = async (req, res, next) => {
 exports.updateProfile = async (req, res, next) => {
   try {
     const {
-      name, npsn, tagline, address, phone, email,
+      name, npsn, tagline, accreditation, address, phone, email,
       principal_name, principal_nip, principal_message,
       vision, mission, history, maps_url, facebook, instagram, youtube
     } = req.body;
@@ -29,7 +33,7 @@ exports.updateProfile = async (req, res, next) => {
 
     await pool.query(
       `UPDATE profiles SET
-        name = ?, npsn = ?, tagline = ?, logo = ?, hero_banner = ?,
+        name = ?, npsn = ?, tagline = ?, accreditation = ?, logo = ?, hero_banner = ?,
         address = ?, phone = ?, email = ?, principal_name = ?, principal_nip = ?,
         principal_photo = ?, principal_message = ?, vision = ?, mission = ?,
         history = ?, maps_url = ?, facebook = ?, instagram = ?, youtube = ?
@@ -38,6 +42,7 @@ exports.updateProfile = async (req, res, next) => {
         name || current.name,
         npsn || current.npsn,
         tagline || current.tagline,
+        accreditation || current.accreditation || 'A',
         logo,
         hero_banner,
         address || current.address,

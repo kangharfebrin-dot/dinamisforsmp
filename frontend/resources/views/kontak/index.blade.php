@@ -31,7 +31,7 @@
                         </div>
                         <div>
                             <strong class="block text-slate-900 font-bold text-xs uppercase text-slate-400">Alamat Lengkap</strong>
-                            <p class="mt-0.5 leading-relaxed">{{ $profile['address'] ?? 'Jl. Raya Juwangi - Kedungombo Km. 2, Juwangi, Boyolali, Jawa Tengah 57391' }}</p>
+                            <p class="mt-0.5 leading-relaxed">{{ $profile['address'] ?? 'Jl. Kayen Baru No. 1, Desa Kayen, Kec. Juwangi, Kab. Boyolali, Jawa Tengah 57391' }}</p>
                         </div>
                     </div>
                     <div class="flex items-start gap-3">
@@ -39,8 +39,8 @@
                             📞
                         </div>
                         <div>
-                            <strong class="block text-slate-900 font-bold text-xs uppercase text-slate-400">Telepon / Fax</strong>
-                            <p class="mt-0.5">{{ $profile['phone'] ?? '(0298) 610023' }}</p>
+                            <strong class="block text-slate-900 font-bold text-xs uppercase text-slate-400">Telepon / Kontak</strong>
+                            <p class="mt-0.5">{{ $profile['phone'] ?? '085642696466' }}</p>
                         </div>
                     </div>
                     <div class="flex items-start gap-3">
@@ -49,7 +49,7 @@
                         </div>
                         <div>
                             <strong class="block text-slate-900 font-bold text-xs uppercase text-slate-400">Email Resmi</strong>
-                            <p class="mt-0.5">{{ $profile['email'] ?? 'info@smpn2juwangi.sch.id' }}</p>
+                            <p class="mt-0.5">{{ $profile['email'] ?? 'smpn2juwang@gmail.com' }}</p>
                         </div>
                     </div>
                     <div class="flex items-start gap-3">

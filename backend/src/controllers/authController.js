@@ -31,6 +31,10 @@ exports.login = async (req, res, next) => {
       return res.status(401).json({ success: false, message: 'Email atau password tidak sesuai.' });
     }
 
+    if (!process.env.JWT_SECRET || process.env.JWT_SECRET.trim().length < 32) {
+      return res.status(500).json({ success: false, message: 'Kesalahan Konfigurasi Server: JWT_SECRET wajib disetel di environment dengan minimal 32 karakter.' });
+    }
+
     const token = jwt.sign(
       {
         id: user.id,
@@ -38,7 +42,7 @@ exports.login = async (req, res, next) => {
         email: user.email,
         role: user.role,
       },
-      process.env.JWT_SECRET || 'smpn2_juwangi_super_secret_jwt_key_2026_xyz987',
+      process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN || '8h' }
     );
 

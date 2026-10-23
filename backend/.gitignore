@@ -5,4 +5,8 @@ node_modules/
 *.env
 public/uploads/*
 !public/uploads/.gitkeep
+!public/uploads/*.jpg
+!public/uploads/*.png
+!public/uploads/*.svg
+!public/uploads/*.pdf
 *.log

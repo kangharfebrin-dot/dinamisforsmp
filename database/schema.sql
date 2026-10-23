@@ -170,6 +170,7 @@ CREATE TABLE IF NOT EXISTS `profiles` (
   `name` VARCHAR(150) NOT NULL DEFAULT 'SMP Negeri 2 Juwangi',
   `npsn` VARCHAR(20) NULL DEFAULT '20308482',
   `tagline` VARCHAR(200) NULL DEFAULT 'Cerdas, Berkarakter, Berakhlak Mulia',
+  `accreditation` VARCHAR(10) NOT NULL DEFAULT 'A',
   `logo` VARCHAR(255) NULL,
   `hero_banner` VARCHAR(255) NULL,
   `address` VARCHAR(255) NULL,

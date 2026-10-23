@@ -7,8 +7,12 @@ function authenticate(req, res, next) {
     return res.status(401).json({ success: false, message: 'Autentikasi gagal: Token tidak ditemukan.' });
   }
 
+  if (!process.env.JWT_SECRET || process.env.JWT_SECRET.trim().length < 32) {
+    return res.status(500).json({ success: false, message: 'Kesalahan Konfigurasi Server: JWT_SECRET wajib disetel di environment dengan minimal 32 karakter.' });
+  }
+
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'smpn2_juwangi_super_secret_jwt_key_2026_xyz987');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
     return next();
   } catch (err) {

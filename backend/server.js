@@ -1,4 +1,11 @@
 require('dotenv').config();
+
+// Enforce JWT_SECRET security requirement
+if (!process.env.JWT_SECRET || process.env.JWT_SECRET.trim().length < 32) {
+  console.error('FATAL ERROR: JWT_SECRET wajib dikonfigurasi di environment (.env) dengan panjang minimal 32 karakter.');
+  process.exit(1);
+}
+
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');

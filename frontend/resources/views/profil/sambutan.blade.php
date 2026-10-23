@@ -15,14 +15,22 @@
     <div class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-sm space-y-8">
         <div class="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-slate-100 text-center sm:text-left">
             <div class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-blue-900 to-amber-400 p-1 shrink-0">
-                <div class="w-full h-full rounded-2xl bg-slate-200 overflow-hidden flex items-center justify-center">
-                    <svg class="w-14 h-14 text-slate-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                <div class="w-full h-full rounded-2xl bg-slate-100 overflow-hidden flex items-center justify-center">
+                    @if(!empty($profile['principal_photo']))
+                        <img src="{{ \App\Services\ApiClient::assetUrl($profile['principal_photo']) }}" alt="{{ $profile['principal_name'] ?? 'Kepala Sekolah' }}" class="w-full h-full object-cover">
+                    @else
+                        <div class="w-full h-full bg-blue-900 text-amber-300 font-extrabold flex items-center justify-center text-sm shadow-inner">
+                            SMPN 2
+                        </div>
+                    @endif
                 </div>
             </div>
             <div>
-                <h2 class="text-xl font-extrabold text-slate-900">{{ $profile['principal_name'] ?? 'Drs. H. Mulyono, M.Pd.' }}</h2>
-                <p class="text-xs text-blue-700 font-semibold mt-0.5">Kepala Sekolah SMP Negeri 2 Juwangi</p>
-                <p class="text-xs text-slate-400">NIP: {{ $profile['principal_nip'] ?? '19680512 199403 1 005' }}</p>
+                <h2 class="text-xl font-extrabold text-slate-900">{{ $profile['principal_name'] ?? 'Kepala SMP Negeri 2 Juwangi' }}</h2>
+                <p class="text-xs text-blue-700 font-semibold mt-0.5">Kepala SMP Negeri 2 Juwangi</p>
+                @if(!empty($profile['principal_nip']) && $profile['principal_nip'] !== '-')
+                    <p class="text-xs text-slate-400">NIP: {{ $profile['principal_nip'] }}</p>
+                @endif
             </div>
         </div>
 

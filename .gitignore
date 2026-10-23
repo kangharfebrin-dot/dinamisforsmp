@@ -25,9 +25,13 @@ frontend/public/fonts-manifest.dev.json
 .phpunit.result.cache
 .phpunit.cache/
 
-# Uploads
+# Uploads (pertahankan aset default sekolah & dokumentasi PDF)
 backend/public/uploads/*
 !backend/public/uploads/.gitkeep
+!backend/public/uploads/*.jpg
+!backend/public/uploads/*.png
+!backend/public/uploads/*.svg
+!backend/public/uploads/*.pdf
 
 # Logs and databases
 *.log

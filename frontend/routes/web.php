@@ -44,6 +44,7 @@ Route::prefix('profil')->name('profil.')->group(function () {
     Route::get('/', [ProfilController::class, 'index'])->name('index');
     Route::get('/visi-misi', [ProfilController::class, 'visiMisi'])->name('visi-misi');
     Route::get('/sambutan-kepala-sekolah', [ProfilController::class, 'sambutan'])->name('sambutan');
+    Route::get('/sambutan', [ProfilController::class, 'sambutan']);
 });
 
 Route::get('/berita', [NewsController::class, 'index'])->name('berita.index');
