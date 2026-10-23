@@ -25,7 +25,7 @@
             </div>
             <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
                 <span class="text-xs text-slate-400 font-bold block uppercase">NPSN</span>
-                <span class="font-bold text-slate-800 text-base">{{ $profile['npsn'] ?? '20308253' }}</span>
+                <span class="font-bold text-slate-800 text-base">{{ $profile['npsn'] ?? '20308482' }}</span>
             </div>
             <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
                 <span class="text-xs text-slate-400 font-bold block uppercase">Status Akreditasi</span>

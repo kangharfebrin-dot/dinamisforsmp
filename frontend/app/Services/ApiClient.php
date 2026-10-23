@@ -52,22 +52,14 @@ class ApiClient
 
         try {
             if ($multipart) {
-                $parts = [];
                 foreach ($data as $key => $value) {
                     if ($value instanceof UploadedFile) {
-                        $parts[] = [
-                            'name'     => $key,
-                            'contents' => fopen($value->getRealPath(), 'r'),
-                            'filename' => $value->getClientOriginalName(),
-                        ];
+                        $http = $http->attach($key, fopen($value->getRealPath(), 'r'), $value->getClientOriginalName());
                     } elseif ($value !== null) {
-                        $parts[] = [
-                            'name'     => $key,
-                            'contents' => (string) $value,
-                        ];
+                        $http = $http->attach($key, (string) $value);
                     }
                 }
-                $response = $http->asMultipart()->post($url, $parts);
+                $response = $http->send($method, $url);
             } else {
                 $response = $http->send($method, $url, [
                     'query' => $query,

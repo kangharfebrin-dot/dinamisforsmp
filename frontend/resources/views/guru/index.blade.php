@@ -29,10 +29,14 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         @forelse($teachers as $t)
         <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-xs hover:shadow-lg transition-all text-center p-6 space-y-3 group">
-            <div class="w-24 h-24 mx-auto rounded-full bg-slate-100 p-1 border-2 border-blue-100 group-hover:border-blue-500 transition-colors">
+            <div class="w-24 h-24 mx-auto rounded-full bg-slate-100 p-1 border-2 border-blue-100 group-hover:border-blue-500 transition-colors overflow-hidden">
+                @if(!empty($t['photo']))
+                <img src="{{ \App\Services\ApiClient::assetUrl($t['photo']) }}" alt="{{ $t['name'] }}" class="w-full h-full object-cover rounded-full">
+                @else
                 <div class="w-full h-full rounded-full bg-slate-200 overflow-hidden flex items-center justify-center text-slate-400">
                     <svg class="w-14 h-14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                 </div>
+                @endif
             </div>
             <div>
                 <h3 class="font-bold text-slate-900 text-base group-hover:text-blue-700 transition-colors">{{ $t['name'] }}</h3>

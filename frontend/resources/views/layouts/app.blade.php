@@ -36,10 +36,10 @@
             </div>
             <div class="flex items-center gap-3">
                 <span class="bg-amber-400/20 text-amber-300 font-semibold px-2 py-0.5 rounded text-[11px] border border-amber-400/30">
-                    NPSN: {{ $profile['npsn'] ?? '20308253' }}
+                    NPSN: {{ $profile['npsn'] ?? '20308482' }}
                 </span>
                 <span class="bg-emerald-500/20 text-emerald-300 font-semibold px-2 py-0.5 rounded text-[11px] border border-emerald-500/30">
-                    Akreditasi A
+                    Terakreditasi A
                 </span>
                 <a href="{{ route('admin.login') }}" class="text-slate-400 hover:text-white transition-colors flex items-center gap-1 pl-2 border-l border-slate-700">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
@@ -55,12 +55,16 @@
             <div class="flex items-center justify-between h-20">
                 <!-- Brand Identity -->
                 <a href="{{ route('home') }}" class="flex items-center gap-3.5 group">
+                    @if(!empty($profile['logo']))
+                    <img src="{{ \App\Services\ApiClient::assetUrl($profile['logo']) }}" alt="Logo" class="w-12 h-12 object-contain group-hover:scale-105 transition-transform">
+                    @else
                     <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-900 to-blue-700 flex items-center justify-center text-white font-extrabold shadow-md shadow-blue-900/20 group-hover:scale-105 transition-transform">
                         <svg class="w-7 h-7 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                     </div>
+                    @endif
                     <div>
                         <span class="text-xl font-extrabold tracking-tight text-blue-950 block leading-tight group-hover:text-blue-700 transition-colors">
-                            SMP Negeri 2 Juwangi
+                            {{ $profile['name'] ?? 'SMP Negeri 2 Juwangi' }}
                         </span>
                         <span class="text-xs font-semibold text-amber-600 block tracking-wide">
                             {{ $profile['tagline'] ?? 'Cerdas, Berkarakter & Berprestasi' }}
@@ -69,50 +73,78 @@
                 </a>
 
                 <!-- Desktop Menu -->
-                <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-700">
+                <nav class="hidden xl:flex items-center gap-6 text-sm font-semibold text-slate-700">
                     <a href="{{ route('home') }}" class="transition-colors {{ request()->routeIs('home') ? 'text-blue-700 font-bold' : 'hover:text-blue-600' }}">
                         Beranda
                     </a>
 
                     <!-- Dropdown Profil -->
-                    <div class="relative group" id="profil-dropdown-container">
-                        <button class="flex items-center gap-1 hover:text-blue-600 transition-colors py-2 focus:outline-none">
-                            <span>Profil Sekolah</span>
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 hover:text-blue-600 transition-colors py-2 focus:outline-none {{ request()->routeIs('profil.*', 'guru.*', 'fasilitas.*') ? 'text-blue-700 font-bold' : '' }}">
+                            <span>Profil</span>
                             <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
                         <div class="absolute left-0 mt-1 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
-                            <a href="{{ route('profil.index') }}" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+                            <a href="{{ route('profil.index') }}" class="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">
                                 Tentang & Sejarah
                             </a>
-                            <a href="{{ route('profil.visi-misi') }}" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+                            <a href="{{ route('profil.visi-misi') }}" class="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">
                                 Visi & Misi
                             </a>
-                            <a href="{{ route('profil.sambutan') }}" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-blue-50 hover:text-blue-700 transition-colors">
+                            <a href="{{ route('profil.sambutan') }}" class="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">
                                 Sambutan Kepala Sekolah
+                            </a>
+                            <a href="{{ route('guru.index') }}" class="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">
+                                Guru & Tenaga Kependidikan
+                            </a>
+                            <a href="{{ route('fasilitas.index') }}" class="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">
+                                Sarana, Prasarana & Ekskul
                             </a>
                         </div>
                     </div>
 
-                    <a href="{{ route('berita.index') }}" class="transition-colors {{ request()->routeIs('berita.*') ? 'text-blue-700 font-bold' : 'hover:text-blue-600' }}">
-                        Berita & Artikel
+                    <!-- Dropdown Informasi / Kabar -->
+                    <div class="relative group">
+                        <button class="flex items-center gap-1 hover:text-blue-600 transition-colors py-2 focus:outline-none {{ request()->routeIs('berita.*', 'pengumuman.*', 'agenda.*', 'prestasi.*') ? 'text-blue-700 font-bold' : '' }}">
+                            <span>Informasi</span>
+                            <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-600 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        <div class="absolute left-0 mt-1 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
+                            <a href="{{ route('berita.index') }}" class="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">
+                                Berita & Artikel
+                            </a>
+                            <a href="{{ route('pengumuman.index') }}" class="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">
+                                Pengumuman Resmi
+                            </a>
+                            <a href="{{ route('agenda.index') }}" class="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">
+                                Agenda Kegiatan
+                            </a>
+                            <a href="{{ route('prestasi.index') }}" class="block px-4 py-2.5 text-xs font-semibold text-slate-700 hover:bg-blue-50 hover:text-blue-700">
+                                Prestasi Siswa & Sekolah
+                            </a>
+                        </div>
+                    </div>
+
+                    <a href="{{ route('galeri.index') }}" class="transition-colors {{ request()->routeIs('galeri.*') ? 'text-blue-700 font-bold' : 'hover:text-blue-600' }}">
+                        Galeri
                     </a>
 
-                    <a href="{{ route('guru.index') }}" class="transition-colors {{ request()->routeIs('guru.*') ? 'text-blue-700 font-bold' : 'hover:text-blue-600' }}">
-                        Guru & Staf
+                    <a href="{{ route('unduhan.index') }}" class="transition-colors {{ request()->routeIs('unduhan.*') ? 'text-blue-700 font-bold' : 'hover:text-blue-600' }}">
+                        Unduhan
                     </a>
 
                     <a href="{{ route('kontak') }}" class="transition-colors {{ request()->routeIs('kontak') ? 'text-blue-700 font-bold' : 'hover:text-blue-600' }}">
-                        Kontak & Lokasi
+                        Kontak
                     </a>
 
-                    <a href="{{ route('ppdb') }}" class="ml-2 inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm bg-gradient-to-r from-amber-500 to-amber-400 text-blue-950 shadow-md shadow-amber-500/20 hover:from-amber-400 hover:to-amber-300 hover:shadow-lg hover:shadow-amber-500/30 transition-all transform hover:-translate-y-0.5">
+                    <a href="{{ route('ppdb') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-xs bg-gradient-to-r from-amber-500 to-amber-400 text-blue-950 shadow-md shadow-amber-500/20 hover:from-amber-400 hover:to-amber-300 transition-all transform hover:-translate-y-0.5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         Info PPDB 2026
                     </a>
                 </nav>
 
                 <!-- Mobile menu button -->
-                <div class="flex items-center lg:hidden">
+                <div class="flex items-center xl:hidden">
                     <button id="mobile-menu-btn" type="button" class="p-2.5 rounded-lg text-slate-700 hover:text-blue-700 hover:bg-blue-50 focus:outline-none" aria-label="Buka Menu">
                         <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
                         <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -122,20 +154,29 @@
         </div>
 
         <!-- Mobile Drawer Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-xl">
-            <a href="{{ route('home') }}" class="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-blue-50 hover:text-blue-700">Beranda</a>
+        <div id="mobile-menu" class="hidden xl:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-2 shadow-xl text-xs font-semibold">
+            <a href="{{ route('home') }}" class="block px-3 py-2 rounded-lg text-slate-800 hover:bg-blue-50 hover:text-blue-700">Beranda</a>
             <div class="pl-3 py-1 space-y-1 border-l-2 border-slate-200 ml-2">
-                <span class="block px-2 text-xs font-bold uppercase tracking-wider text-slate-400">Profil Sekolah</span>
-                <a href="{{ route('profil.index') }}" class="block px-2 py-1.5 text-sm font-medium text-slate-700 hover:text-blue-700">Tentang Sekolah</a>
-                <a href="{{ route('profil.visi-misi') }}" class="block px-2 py-1.5 text-sm font-medium text-slate-700 hover:text-blue-700">Visi & Misi</a>
-                <a href="{{ route('profil.sambutan') }}" class="block px-2 py-1.5 text-sm font-medium text-slate-700 hover:text-blue-700">Sambutan Kepala Sekolah</a>
+                <span class="block px-2 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Profil Sekolah</span>
+                <a href="{{ route('profil.index') }}" class="block px-2 py-1.5 text-slate-700 hover:text-blue-700">Tentang & Sejarah</a>
+                <a href="{{ route('profil.visi-misi') }}" class="block px-2 py-1.5 text-slate-700 hover:text-blue-700">Visi & Misi</a>
+                <a href="{{ route('profil.sambutan') }}" class="block px-2 py-1.5 text-slate-700 hover:text-blue-700">Sambutan Kepala Sekolah</a>
+                <a href="{{ route('guru.index') }}" class="block px-2 py-1.5 text-slate-700 hover:text-blue-700">Guru & Tendik</a>
+                <a href="{{ route('fasilitas.index') }}" class="block px-2 py-1.5 text-slate-700 hover:text-blue-700">Sarana, Prasarana & Ekskul</a>
             </div>
-            <a href="{{ route('berita.index') }}" class="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-blue-50 hover:text-blue-700">Berita & Informasi</a>
-            <a href="{{ route('guru.index') }}" class="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-blue-50 hover:text-blue-700">Guru & Staf</a>
-            <a href="{{ route('kontak') }}" class="block px-3 py-2 rounded-lg font-semibold text-slate-800 hover:bg-blue-50 hover:text-blue-700">Kontak & Lokasi</a>
+            <div class="pl-3 py-1 space-y-1 border-l-2 border-slate-200 ml-2">
+                <span class="block px-2 text-[10px] font-extrabold uppercase tracking-wider text-slate-400">Informasi & Kabar</span>
+                <a href="{{ route('berita.index') }}" class="block px-2 py-1.5 text-slate-700 hover:text-blue-700">Berita & Artikel</a>
+                <a href="{{ route('pengumuman.index') }}" class="block px-2 py-1.5 text-slate-700 hover:text-blue-700">Pengumuman Resmi</a>
+                <a href="{{ route('agenda.index') }}" class="block px-2 py-1.5 text-slate-700 hover:text-blue-700">Agenda Kegiatan</a>
+                <a href="{{ route('prestasi.index') }}" class="block px-2 py-1.5 text-slate-700 hover:text-blue-700">Prestasi Siswa</a>
+            </div>
+            <a href="{{ route('galeri.index') }}" class="block px-3 py-2 rounded-lg text-slate-800 hover:bg-blue-50 hover:text-blue-700">Galeri Foto</a>
+            <a href="{{ route('unduhan.index') }}" class="block px-3 py-2 rounded-lg text-slate-800 hover:bg-blue-50 hover:text-blue-700">Dokumen Unduhan</a>
+            <a href="{{ route('kontak') }}" class="block px-3 py-2 rounded-lg text-slate-800 hover:bg-blue-50 hover:text-blue-700">Kontak & Lokasi</a>
             <div class="pt-3">
                 <a href="{{ route('ppdb') }}" class="block text-center w-full py-2.5 rounded-xl font-bold bg-amber-400 text-blue-950 shadow-md">
-                    Penerimaan Siswa Baru (PPDB)
+                    Penerimaan Peserta Didik Baru (PPDB)
                 </a>
             </div>
         </div>
@@ -166,7 +207,7 @@
                     </p>
                     <div class="flex items-center gap-2 pt-2">
                         <span class="inline-block px-3 py-1 bg-blue-950 text-blue-300 text-xs font-semibold rounded-full border border-blue-800">
-                            NPSN: {{ $profile['npsn'] ?? '20308253' }}
+                            NPSN: {{ $profile['npsn'] ?? '20308482' }}
                         </span>
                         <span class="inline-block px-3 py-1 bg-amber-950/60 text-amber-300 text-xs font-semibold rounded-full border border-amber-800/60">
                             Terakreditasi A
@@ -180,10 +221,14 @@
                     <ul class="space-y-2 text-sm">
                         <li><a href="{{ route('home') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Beranda</a></li>
                         <li><a href="{{ route('profil.index') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Profil & Sejarah</a></li>
-                        <li><a href="{{ route('profil.visi-misi') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Visi & Misi</a></li>
-                        <li><a href="{{ route('berita.index') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Kabar Sekolah</a></li>
-                        <li><a href="{{ route('guru.index') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Dewan Guru & Tendik</a></li>
-                        <li><a href="{{ route('ppdb') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Penerimaan Siswa (PPDB)</a></li>
+                        <li><a href="{{ route('berita.index') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Berita & Artikel</a></li>
+                        <li><a href="{{ route('pengumuman.index') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Pengumuman Resmi</a></li>
+                        <li><a href="{{ route('agenda.index') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Agenda Kegiatan</a></li>
+                        <li><a href="{{ route('prestasi.index') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Prestasi Siswa</a></li>
+                        <li><a href="{{ route('fasilitas.index') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Fasilitas & Ekskul</a></li>
+                        <li><a href="{{ route('galeri.index') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Galeri Foto</a></li>
+                        <li><a href="{{ route('unduhan.index') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Dokumen Unduhan</a></li>
+                        <li><a href="{{ route('ppdb') }}" class="hover:text-amber-400 transition-colors flex items-center gap-1.5"><span class="text-slate-600">›</span> Informasi PPDB 2026</a></li>
                     </ul>
                 </div>
 
@@ -193,7 +238,7 @@
                     <ul class="space-y-3 text-sm text-slate-400">
                         <li class="flex items-start gap-2.5">
                             <svg class="w-5 h-5 text-amber-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                            <span>{{ $profile['address'] ?? 'Jl. Raya Juwangi - Kedungombo Km. 2, Juwangi, Boyolali, Jawa Tengah 57391' }}</span>
+                            <span>{{ $profile['address'] ?? 'Jl. Raya Juwangi, Kec. Juwangi, Kab. Boyolali, Jawa Tengah' }}</span>
                         </li>
                         <li class="flex items-center gap-2.5">
                             <svg class="w-5 h-5 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
@@ -214,7 +259,7 @@
                 <div>
                     <h4 class="text-white font-bold text-base mb-4 pb-2 border-b border-slate-800">Media Sosial & Lokasi</h4>
                     <p class="text-sm text-slate-400 mb-4">
-                        Ikuti perkembangan kegiatan dan prestasi siswa melalui kanal media sosial resmi sekolah:
+                        Ikuti kabar dan kegiatan siswa melalui kanal resmi:
                     </p>
                     <div class="flex items-center gap-3 mb-6">
                         <a href="{{ $profile['facebook'] ?? '#' }}" target="_blank" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-blue-600 text-slate-300 hover:text-white flex items-center justify-center transition-all" title="Facebook">
@@ -236,9 +281,9 @@
 
             <!-- Bottom Copyright -->
             <div class="mt-12 pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
-                <p>&copy; {{ date('Y') }} SMP Negeri 2 Juwangi. Hak Cipta Dilindungi Undang-Undang.</p>
+                <p>&copy; {{ date('Y') }} SMP Negeri 2 Juwangi. Hak Cipta Dilindungi.</p>
                 <p class="flex items-center gap-3">
-                    <a href="{{ route('admin.login') }}" class="hover:text-slate-300">Masuk Pengelola</a>
+                    <a href="{{ route('admin.login') }}" class="hover:text-slate-300">Portal Admin</a>
                     <span>•</span>
                     <span>Boyolali, Jawa Tengah</span>
                 </p>

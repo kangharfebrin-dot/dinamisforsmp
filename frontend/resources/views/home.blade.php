@@ -19,7 +19,7 @@
                     {{ Str::limit($announcements[0]['content'] ?? '', 110) }}
                 </span>
             </div>
-            <a href="{{ route('berita.index') }}" class="shrink-0 text-blue-950 underline hover:text-blue-900 text-xs font-bold">
+            <a href="{{ route('pengumuman.show', $announcements[0]['id']) }}" class="shrink-0 text-blue-950 underline hover:text-blue-900 text-xs font-bold">
                 Detail →
             </a>
         </div>
@@ -99,7 +99,7 @@
                                     </div>
                                 </div>
                                 <span class="bg-amber-400/20 text-amber-300 text-xs font-bold px-2.5 py-1 rounded-full border border-amber-400/30">
-                                    NPSN 20308253
+                                    NPSN {{ $profile['npsn'] ?? '20308482' }}
                                 </span>
                             </div>
 
@@ -286,6 +286,9 @@
                                 <p class="text-xs text-slate-500">Jadwal agenda & aktivitas mendatang</p>
                             </div>
                         </div>
+                        <a href="{{ route('agenda.index') }}" class="text-xs font-bold text-blue-600 hover:underline">
+                            Lihat Semua &rarr;
+                        </a>
                     </div>
 
                     <div class="space-y-4">
@@ -334,6 +337,9 @@
                                 <p class="text-xs text-slate-500">Pemberitahuan resmi sekolah</p>
                             </div>
                         </div>
+                        <a href="{{ route('pengumuman.index') }}" class="text-xs font-bold text-amber-600 hover:underline">
+                            Lihat Semua &rarr;
+                        </a>
                     </div>
 
                     <div class="space-y-4">

@@ -16,13 +16,17 @@ function authenticate(req, res, next) {
   }
 }
 
-function authorize(...roles) {
-  return (req, res, next) => {
-    if (!req.user || !roles.includes(req.user.role)) {
-      return res.status(403).json({ success: false, message: 'Akses ditolak: Anda tidak memiliki wewenang untuk tindakan ini.' });
-    }
-    return next();
-  };
+// PRD FR-02: Satu peran tunggal yaitu Admin
+function authorizeAdmin(req, res, next) {
+  if (!req.user || req.user.role !== 'admin') {
+    return res.status(403).json({ success: false, message: 'Akses ditolak: Hanya peran Admin yang berwenang untuk tindakan ini.' });
+  }
+  return next();
 }
 
-module.exports = { authenticate, authorize };
+function authorize(...roles) {
+  // Kompatibilitas mundur jika dipanggil authorize('admin')
+  return authorizeAdmin;
+}
+
+module.exports = { authenticate, authorize, authorizeAdmin };

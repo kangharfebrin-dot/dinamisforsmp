@@ -11,7 +11,7 @@ class HomeController extends Controller
     {
         $profile = $api->get('profile')->json('data') ?? [
             'name' => 'SMP Negeri 2 Juwangi',
-            'npsn' => '20308253',
+            'npsn' => '20308482',
             'tagline' => 'Cerdas, Berkarakter, Berakhlak Mulia, dan Berprestasi',
             'address' => 'Jl. Raya Juwangi - Kedungombo Km. 2, Juwangi, Boyolali, Jawa Tengah 57391',
             'phone' => '(0298) 610023',
@@ -24,15 +24,22 @@ class HomeController extends Controller
         $news = $api->get('news', ['limit' => 4, 'status' => 'published'])->json('data') ?? [];
         $announcements = $api->get('announcements', ['limit' => 3])->json('data') ?? [];
         $agendas = $api->get('agendas', ['limit' => 3])->json('data') ?? [];
-        $stats = $api->get('stats')->json('data') ?? [
-            'total_posts' => count($news),
-            'total_teachers' => 24,
-            'total_staff' => 8,
-            'total_achievements' => 15,
-            'active_students' => 480,
-        ];
+        $stats = $api->get('stats')->json('data') ?? [];
         $achievements = $api->get('achievements', ['limit' => 3])->json('data') ?? [];
+        $extracurriculars = $api->get('extracurriculars')->json('data') ?? [];
+        $facilities = $api->get('facilities')->json('data') ?? [];
+        $galleries = $api->get('galleries')->json('data') ?? [];
 
-        return view('home', compact('profile', 'news', 'announcements', 'agendas', 'stats', 'achievements'));
+        return view('home', compact(
+            'profile',
+            'news',
+            'announcements',
+            'agendas',
+            'stats',
+            'achievements',
+            'extracurriculars',
+            'facilities',
+            'galleries'
+        ));
     }
 }

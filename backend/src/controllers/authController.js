@@ -23,7 +23,7 @@ exports.login = async (req, res, next) => {
 
     const user = rows[0];
     if (!user.is_active) {
-      return res.status(403).json({ success: false, message: 'Akun Anda dinonaktifkan. Hubungi Super Admin.' });
+      return res.status(403).json({ success: false, message: 'Akun Anda dinonaktifkan. Hubungi administrator.' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password_hash);
@@ -74,6 +74,61 @@ exports.me = async (req, res, next) => {
     }
 
     res.json({ success: true, data: rows[0] });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.updateProfile = async (req, res, next) => {
+  try {
+    const { name, email } = req.body;
+    if (!name || !email) {
+      return res.status(400).json({ success: false, message: 'Nama dan email wajib diisi.' });
+    }
+
+    // Cek duplikasi email pada user lain
+    const [existing] = await pool.query('SELECT id FROM users WHERE email = ? AND id != ? LIMIT 1', [email.trim().toLowerCase(), req.user.id]);
+    if (existing.length) {
+      return res.status(400).json({ success: false, message: 'Email sudah digunakan oleh akun lain.' });
+    }
+
+    await pool.query('UPDATE users SET name = ?, email = ? WHERE id = ?', [name.trim(), email.trim().toLowerCase(), req.user.id]);
+
+    res.json({ success: true, message: 'Profil admin berhasil diperbarui.' });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.changePassword = async (req, res, next) => {
+  try {
+    const { current_password, new_password, new_password_confirmation } = req.body;
+    if (!current_password || !new_password) {
+      return res.status(400).json({ success: false, message: 'Kata sandi saat ini dan kata sandi baru wajib diisi.' });
+    }
+
+    if (new_password.length < 8) {
+      return res.status(400).json({ success: false, message: 'Kata sandi baru minimal 8 karakter.' });
+    }
+
+    if (new_password_confirmation && new_password !== new_password_confirmation) {
+      return res.status(400).json({ success: false, message: 'Konfirmasi kata sandi baru tidak cocok.' });
+    }
+
+    const [rows] = await pool.query('SELECT password_hash FROM users WHERE id = ? LIMIT 1', [req.user.id]);
+    if (!rows.length) {
+      return res.status(404).json({ success: false, message: 'Akun tidak ditemukan.' });
+    }
+
+    const isMatch = await bcrypt.compare(current_password, rows[0].password_hash);
+    if (!isMatch) {
+      return res.status(400).json({ success: false, message: 'Kata sandi saat ini tidak sesuai.' });
+    }
+
+    const newHash = await bcrypt.hash(new_password, 10);
+    await pool.query('UPDATE users SET password_hash = ? WHERE id = ?', [newHash, req.user.id]);
+
+    res.json({ success: true, message: 'Kata sandi berhasil diperbarui.' });
   } catch (err) {
     next(err);
   }

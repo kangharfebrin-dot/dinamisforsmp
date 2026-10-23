@@ -2,17 +2,17 @@
 CREATE DATABASE IF NOT EXISTS `smpn2_juwangi_web` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE `smpn2_juwangi_web`;
 
--- 1. Roles
+-- 1. Roles (Single Role: Admin)
 CREATE TABLE IF NOT EXISTS `roles` (
   `id` TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(50) NOT NULL,
   `slug` VARCHAR(50) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- 2. Users
+-- 2. Users (Role Admin)
 CREATE TABLE IF NOT EXISTS `users` (
   `id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-  `role_id` TINYINT UNSIGNED NOT NULL,
+  `role_id` TINYINT UNSIGNED NOT NULL DEFAULT 1,
   `name` VARCHAR(100) NOT NULL,
   `email` VARCHAR(150) NOT NULL UNIQUE,
   `password_hash` VARCHAR(255) NOT NULL,
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `menus` (
 CREATE TABLE IF NOT EXISTS `profiles` (
   `id` TINYINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(150) NOT NULL DEFAULT 'SMP Negeri 2 Juwangi',
-  `npsn` VARCHAR(20) NULL DEFAULT '20308253',
+  `npsn` VARCHAR(20) NULL DEFAULT '20308482',
   `tagline` VARCHAR(200) NULL DEFAULT 'Cerdas, Berkarakter, Berakhlak Mulia',
   `logo` VARCHAR(255) NULL,
   `hero_banner` VARCHAR(255) NULL,

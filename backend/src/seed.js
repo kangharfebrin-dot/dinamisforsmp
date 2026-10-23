@@ -5,28 +5,28 @@ async function seed() {
   console.log('--- MEMULAI SEED DATA SMP NEGERI 2 JUWANGI ---');
 
   try {
-    // 1. Roles
-    await pool.query(`
-      INSERT INTO roles (id, name, slug) VALUES
-      (1, 'Super Admin', 'super_admin'),
-      (2, 'Admin', 'admin'),
-      (3, 'Editor', 'editor')
-      ON DUPLICATE KEY UPDATE name=VALUES(name)
-    `);
-    console.log('✔ Roles seeded');
+    // 0. Migrasi Peran Lama (PRD Bab 12): Konsolidasi ke peran tunggal Admin
+    await pool.query('UPDATE users SET role_id = 1').catch(() => {});
+    await pool.query('DELETE FROM roles WHERE id != 1').catch(() => {});
+    await pool.query("UPDATE roles SET name = 'Admin', slug = 'admin' WHERE id = 1");
+    console.log('✔ Roles migrated (Single role: Admin)');
 
-    // 2. Users
+    // 1. Users (Akun Tunggal Admin Pengelola — PRD FR-02)
+    // Konsolidasikan relasi konten ke akun Admin utama (id: 1)
+    await pool.query('UPDATE posts SET author_id = 1').catch(() => {});
+    await pool.query('UPDATE announcements SET author_id = 1').catch(() => {});
+    await pool.query('UPDATE documents SET uploaded_by = 1').catch(() => {});
+    await pool.query('DELETE FROM users WHERE id != 1').catch(() => {});
+
     const passwordHash = await bcrypt.hash('password123', 10);
     await pool.query(`
-      INSERT INTO users (id, role_id, name, email, password_hash) VALUES
-      (1, 1, 'Super Administrator', 'superadmin@smpn2juwangi.sch.id', :pwd),
-      (2, 2, 'Admin Humas SMPN 2 Juwangi', 'admin@smpn2juwangi.sch.id', :pwd),
-      (3, 3, 'Editor Redaksi Berita', 'editor@smpn2juwangi.sch.id', :pwd)
-      ON DUPLICATE KEY UPDATE name=VALUES(name), password_hash=VALUES(password_hash)
+      INSERT INTO users (id, role_id, name, email, password_hash, is_active) VALUES
+      (1, 1, 'Administrator SMPN 2 Juwangi', 'admin@smpn2juwangi.sch.id', :pwd, 1)
+      ON DUPLICATE KEY UPDATE name=VALUES(name), email=VALUES(email), password_hash=VALUES(password_hash), role_id=1, is_active=1
     `, { pwd: passwordHash });
-    console.log('✔ Users seeded (Password default: password123)');
+    console.log('✔ User Admin seeded (Email: admin@smpn2juwangi.sch.id / Password: password123)');
 
-    // 3. Profiles
+    // 3. Profiles (Identitas Resmi & NPSN 20308482 Kemendikdasmen)
     await pool.query(`
       INSERT INTO profiles (
         id, name, npsn, tagline, logo, hero_banner, address, phone, email,
@@ -35,7 +35,7 @@ async function seed() {
       ) VALUES (
         1,
         'SMP Negeri 2 Juwangi',
-        '20308253',
+        '20308482',
         'Cerdas, Berkarakter, Berakhlak Mulia, dan Berprestasi',
         '/uploads/logo-smpn2.png',
         '/uploads/hero-banner.jpg',
@@ -55,11 +55,11 @@ async function seed() {
         'https://youtube.com/@smpnegeri2juwangi'
       )
       ON DUPLICATE KEY UPDATE
-        name=VALUES(name), tagline=VALUES(tagline), address=VALUES(address),
+        name=VALUES(name), npsn=VALUES(npsn), tagline=VALUES(tagline), address=VALUES(address),
         phone=VALUES(phone), email=VALUES(email), principal_name=VALUES(principal_name),
         principal_message=VALUES(principal_message), vision=VALUES(vision), mission=VALUES(mission)
     `);
-    console.log('✔ Profile seeded');
+    console.log('✔ Profile seeded (NPSN: 20308482)');
 
     // 4. Categories
     await pool.query(`
@@ -73,7 +73,7 @@ async function seed() {
     `);
     console.log('✔ Categories seeded');
 
-    // 5. Posts
+    // 5. Posts (author_id = 1)
     await pool.query(`
       INSERT INTO posts (id, category_id, author_id, title, slug, excerpt, content, cover_image, status, views_count, published_at) VALUES
       (1, 1, 1,
@@ -83,14 +83,14 @@ async function seed() {
        '<p>Juwangi — Dalam rangka meneladani semangat perjuangan para pendahulu bangsa, SMP Negeri 2 Juwangi menggelar upacara bendera peringatan Hari Pahlawan di halaman utama sekolah pada pagi hari ini. Upacara diikuti dengan penuh antusias oleh seluruh dewan guru, staf TU, dan peserta didik dari kelas VII hingga IX.</p><p>Kepala Sekolah dalam amanatnya menegaskan pentingnya memaknai nilai kepahlawanan di masa kini, seperti tekun belajar, menjunjung kejujuran, dan saling tolong-menolong sesama kawan.</p>',
        '/uploads/berita-upacara.jpg', 'published', 245, NOW() - INTERVAL 1 DAY),
 
-      (2, 2, 2,
+      (2, 2, 1,
        'Membanggakan! Tim Futsal SMPN 2 Juwangi Raih Juara 1 Turnamen Pelajar Kabupaten Boyolali',
        'tim-futsal-smpn-2-juwangi-raih-juara-1-turnamen-pelajar-kabupaten-boyolali',
        'Tim Futsal kebanggaan sekolah sukses menyabet gelar Juara Pertama setelah melewati pertandingan final dramatis dengan skor 3-2.',
        '<p>Boyolali — Prestasi membanggakan kembali dipersembahkan oleh peserta didik SMP Negeri 2 Juwangi. Kali ini datang dari cabang olahraga futsal dalam ajang Turnamen Futsal Pelajar Antar-SMP se-Kabupaten Boyolali.</p><p>Pelatih ekstrakurikuler futsal mengapresiasi kedisiplinan dan kerja keras para pemain selama masa latihan intensif.</p>',
        '/uploads/berita-futsal.jpg', 'published', 412, NOW() - INTERVAL 3 DAY),
 
-      (3, 3, 2,
+      (3, 3, 1,
        'Pentas Karya & Bazar Proyek P5: Siswa Tampilkan Kreativitas Daur Ulang dan Kuliner Lokal',
        'pentas-karya-dan-bazar-proyek-p5-siswa-tampilkan-kreativitas',
        'Kegiatan Proyek Penguatan Profil Pelajar Pancasila (P5) semester ini menampilkan puluhan karya inovatif karya siswa dari bahan limbah organik dan kearifan lokal.',
@@ -103,23 +103,23 @@ async function seed() {
        'Bagi calon peserta didik dan wali murid, berikut rincian jadwal, jalur pendaftaran, dan syarat administrasi PPDB tahun ajaran baru.',
        '<p>SMP Negeri 2 Juwangi siap menyambut calon peserta didik baru untuk tahun ajaran 2026/2027. Tersedia empat jalur penerimaan: Zonasi, Afirmasi, Perpindahan Tugas Orang Tua, dan Prestasi.</p>',
        '/uploads/berita-ppdb.jpg', 'published', 580, NOW() - INTERVAL 7 DAY)
-      ON DUPLICATE KEY UPDATE title=VALUES(title), excerpt=VALUES(excerpt), content=VALUES(content)
+      ON DUPLICATE KEY UPDATE title=VALUES(title), excerpt=VALUES(excerpt), content=VALUES(content), author_id=1
     `);
     console.log('✔ Posts seeded');
 
-    // 6. Announcements
+    // 6. Announcements (author_id = 1)
     await pool.query(`
       INSERT INTO announcements (id, author_id, title, content, attachment, status, priority, published_at) VALUES
       (1, 1, 'Jadwal Pelaksanaan Asesmen Sumatif Akhir Semester (ASAS) Genap',
        'Diberitahukan kepada seluruh siswa kelas VII, VIII, dan IX bahwa Asesmen Sumatif Akhir Semester Genap akan dilaksanakan mulai hari Senin pekan depan. Harap mempersiapkan diri dengan baik dan menjaga kesehatan.',
        null, 'published', 1, NOW() - INTERVAL 1 DAY),
-      (2, 2, 'Pengambilan Laporan Hasil Belajar (Rapor) & Pertemuan Wali Murid',
+      (2, 1, 'Pengambilan Laporan Hasil Belajar (Rapor) & Pertemuan Wali Murid',
        'Undangan pengambilan rapor semester ganjil akan dilaksanakan secara tatap muka dengan tetap mematuhi protokol dan jadwal pembagian sesi per kelas.',
        null, 'published', 1, NOW() - INTERVAL 2 DAY),
-      (3, 2, 'Pendaftaran Ekstrakurikuler Pilihan Semester Genap Telah Dibuka',
+      (3, 1, 'Pendaftaran Ekstrakurikuler Pilihan Semester Genap Telah Dibuka',
        'Siswa dipersilakan memilih 1-2 kegiatan ekstrakurikuler minat bakat melalui wali kelas masing-masing hingga akhir pekan ini.',
        null, 'published', 0, NOW() - INTERVAL 4 DAY)
-      ON DUPLICATE KEY UPDATE title=VALUES(title), content=VALUES(content)
+      ON DUPLICATE KEY UPDATE title=VALUES(title), content=VALUES(content), author_id=1
     `);
     console.log('✔ Announcements seeded');
 
@@ -148,7 +148,7 @@ async function seed() {
     `);
     console.log('✔ Agendas seeded');
 
-    // 8. Teachers
+    // 8. Teachers & Staff
     await pool.query(`
       INSERT INTO teachers (id, name, nip, type, position, subject, photo, email) VALUES
       (1, 'Drs. H. Mulyono, M.Pd.', '19680512 199403 1 005', 'guru', 'Kepala Sekolah', 'Manajemen Pendidikan', '/uploads/guru-1.jpg', 'mulyono@smpn2juwangi.sch.id'),
@@ -170,6 +170,64 @@ async function seed() {
       ON DUPLICATE KEY UPDATE title=VALUES(title)
     `);
     console.log('✔ Achievements seeded');
+
+    // 10. Extracurriculars
+    await pool.query(`
+      INSERT INTO extracurriculars (id, name, description, schedule, coach, image) VALUES
+      (1, 'Pramuka Gudep SMPN 2 Juwangi', 'Kegiatan kepanduan wajib yang menanamkan kedisiplinan, kemandirian, dan kepemimpinan berwawasan kebangsaan.', 'Jumat, 14.00 - 16.30 WIB', 'Bambang Tri Atmojo, S.Pd.', '/uploads/ekskul-pramuka.jpg'),
+      (2, 'Futsal & Sepak Bola', 'Pengembangan bakat olahraga sepak bola dan futsal dengan pembinaan teknik, fisik, serta mental kompetisi.', 'Selasa & Kamis, 15.30 - 17.30 WIB', 'Dwi Santoso, S.Pd.', '/uploads/ekskul-futsal.jpg'),
+      (3, 'Palang Merah Remaja (PMR)', 'Pelatihan pertolongan pertama, donor darah, kesehatan remaja, dan bakti sosial kepedulian lingkungan.', 'Rabu, 14.30 - 16.00 WIB', 'Rina Wahyuni, S.Kom.', '/uploads/ekskul-pmr.jpg'),
+      (4, 'Seni Musik & Karawitan', 'Melestarikan seni tradisional gamelan Jawa dan ansambel musik modern untuk mengasah kepekaan estetika.', 'Sabtu, 09.00 - 11.30 WIB', 'Sutrisno, S.Sn.', '/uploads/ekskul-karawitan.jpg')
+      ON DUPLICATE KEY UPDATE name=VALUES(name)
+    `);
+    console.log('✔ Extracurriculars seeded');
+
+    // 11. Facilities
+    await pool.query(`
+      INSERT INTO facilities (id, name, description, image) VALUES
+      (1, 'Laboratorium Komputer', 'Dilengkapi 36 unit komputer terhubung internet kecepatan tinggi untuk pembelajaran TIK dan asesmen nasional (ANBK).', '/uploads/fasilitas-labkom.jpg'),
+      (2, 'Perpustakaan Graha Pustaka', 'Koleksi ribuan buku pelajaran, fiksi, ensiklopedia, serta ruang baca ber-AC yang nyaman dan katalog digital.', '/uploads/fasilitas-perpus.jpg'),
+      (3, 'Laboratorium IPA Terpadu', 'Peralatan praktikum fisika, biologi, dan kimia yang lengkap dan aman untuk menunjang pembelajaran saintifik.', '/uploads/fasilitas-labipa.jpg'),
+      (4, 'Lapangan Olahraga Multifungsi', 'Area olahraga outdoor standar untuk upacara bendera, basket, voli, dan futsal.', '/uploads/fasilitas-lapangan.jpg'),
+      (5, 'Mushola As-Salam', 'Tempat ibadah sholat berjamaah dzuhur dan kegiatan bimbingan rohani Islam bagi warga sekolah.', '/uploads/fasilitas-mushola.jpg')
+      ON DUPLICATE KEY UPDATE name=VALUES(name)
+    `);
+    console.log('✔ Facilities seeded');
+
+    // 12. Albums & Galleries
+    await pool.query(`
+      INSERT INTO albums (id, name, description) VALUES
+      (1, 'Upacara & Peringatan Hari Besar', 'Dokumentasi kegiatan upacara bendera dan perayaan hari nasional.'),
+      (2, 'Proyek Penguatan Profil Pelajar Pancasila (P5)', 'Kreativitas dan gelar karya siswa-siswi SMP Negeri 2 Juwangi.'),
+      (3, 'Prestasi & Lomba Siswa', 'Momen penerimaan piala dan kejuaraan tingkat kabupaten dan provinsi.')
+      ON DUPLICATE KEY UPDATE name=VALUES(name)
+    `);
+    await pool.query(`
+      INSERT INTO galleries (id, album_id, title, image, alt_text) VALUES
+      (1, 1, 'Upacara Hari Pahlawan 2026', '/uploads/berita-upacara.jpg', 'Foto barisan upacara bendera hari pahlawan'),
+      (2, 2, 'Pameran Karya Limbah Plastik P5', '/uploads/berita-p5.jpg', 'Foto karya kerajinan daur ulang siswa'),
+      (3, 3, 'Penyerahan Medali Futsal Boyolali', '/uploads/berita-futsal.jpg', 'Foto tim futsal memegang piala juara 1')
+      ON DUPLICATE KEY UPDATE title=VALUES(title)
+    `);
+    console.log('✔ Albums & Galleries seeded');
+
+    // 13. Documents / Unduhan
+    await pool.query(`
+      INSERT INTO documents (id, title, category, file_path, file_size, uploaded_by, download_count) VALUES
+      (1, 'Kalender Akademik SMPN 2 Juwangi 2026/2027', 'Akademik', '/uploads/kalender-akademik-2026.pdf', 524288, 1, 120),
+      (2, 'Pedoman & Tata Tertib Peserta Didik', 'Kesiswaan', '/uploads/tata-tertib-siswa.pdf', 314572, 1, 85),
+      (3, 'Brosur & Formulir Pendaftaran PPDB 2026', 'PPDB', '/uploads/brosur-ppdb-2026.pdf', 1048576, 1, 340)
+      ON DUPLICATE KEY UPDATE title=VALUES(title), uploaded_by=1
+    `);
+    console.log('✔ Documents seeded');
+
+    // 14. Pages
+    await pool.query(`
+      INSERT INTO pages (id, title, slug, content, meta_title, meta_description, status) VALUES
+      (1, 'Informasi Resmi PPDB 2026/2027', 'ppdb-info', '<h2>Petunjuk Penerimaan Peserta Didik Baru (PPDB) SMP Negeri 2 Juwangi</h2><p>SMP Negeri 2 Juwangi menyelenggarakan PPDB secara transparan, akuntabel, dan bebas biaya pendaftaran. Calon peserta didik dapat mendaftar melalui jalur Zonasi, Afirmasi, Perpindahan Tugas Orang Tua, maupun Prestasi.</p>', 'PPDB 2026/2027 SMPN 2 Juwangi', 'Informasi resmi jalur, syarat, dan jadwal PPDB SMP Negeri 2 Juwangi', 'published')
+      ON DUPLICATE KEY UPDATE title=VALUES(title)
+    `);
+    console.log('✔ Pages seeded');
 
     console.log('--- SEMUA DATA AWAL SEEDING SELESAI DENGAN SUKSES! ---');
     process.exit(0);
