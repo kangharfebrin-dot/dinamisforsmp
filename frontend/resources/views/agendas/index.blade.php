@@ -5,7 +5,7 @@
 
 @section('content')
 <!-- Hero Header -->
-<section class="bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 text-white py-16 sm:py-20">
+<section class="bg-linear-to-b from-slate-900 via-blue-950 to-slate-900 text-white py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <span class="inline-block px-3 py-1 bg-amber-400/20 text-amber-300 font-extrabold text-xs uppercase tracking-wider rounded-full border border-amber-400/30 mb-3">
             Kalender Sekolah
@@ -18,7 +18,7 @@
 </section>
 
 <!-- Content List -->
-<section class="py-12 bg-slate-50 flex-grow">
+<section class="py-12 bg-slate-50 grow">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         @forelse($agendas as $agenda)
         <article class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs hover:shadow-md transition-shadow flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">

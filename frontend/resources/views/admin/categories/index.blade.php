@@ -83,7 +83,7 @@
 </div>
 
 <!-- Modal Edit Kategori -->
-<div id="editModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+<div id="editModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-4 z-50 hidden">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 text-xs">
         <h3 class="text-sm font-bold text-slate-900 mb-1">Sunting Kategori</h3>
         <p class="text-slate-500 mb-4">Ubah nama kategori yang sudah ada.</p>
@@ -111,9 +111,12 @@ function editCategory(id, name) {
     form.action = `/admin/kategori/${id}`;
     input.value = name;
     modal.classList.remove('hidden');
+    modal.classList.add('flex');
 }
 function closeEditModal() {
-    document.getElementById('editModal').classList.add('hidden');
+    const modal = document.getElementById('editModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
 }
 </script>
 @endsection

@@ -14,6 +14,7 @@ const FRONTEND_URL = 'http://127.0.0.1:8000';
 function httpRequest(url, options = {}) {
   return new Promise((resolve, reject) => {
     const urlObj = new URL(url);
+    const bodyData = options.body ? (typeof options.body === 'string' ? options.body : JSON.stringify(options.body)) : null;
     const reqOptions = {
       hostname: urlObj.hostname,
       port: urlObj.port,
@@ -24,6 +25,9 @@ function httpRequest(url, options = {}) {
         ...(options.headers || {})
       }
     };
+    if (bodyData) {
+      reqOptions.headers['Content-Length'] = Buffer.byteLength(bodyData);
+    }
 
     const req = http.request(reqOptions, (res) => {
       let body = '';
@@ -47,8 +51,8 @@ function httpRequest(url, options = {}) {
 
     req.on('error', reject);
 
-    if (options.body) {
-      req.write(typeof options.body === 'string' ? options.body : JSON.stringify(options.body));
+    if (bodyData) {
+      req.write(bodyData);
     }
     req.end();
   });

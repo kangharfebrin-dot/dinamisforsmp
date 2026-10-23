@@ -3,7 +3,7 @@
 @section('title', 'Penerimaan Peserta Didik Baru (PPDB) 2026/2027 — ' . ($profile['name'] ?? 'SMP Negeri 2 Juwangi'))
 
 @section('content')
-<div class="bg-gradient-to-r from-blue-950 to-slate-900 text-white py-14 border-b border-slate-800">
+<div class="bg-linear-to-r from-blue-950 to-slate-900 text-white py-14 border-b border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center sm:text-left">
         <span class="text-xs font-bold uppercase tracking-wider text-amber-400 bg-amber-400/20 px-3 py-1 rounded-full border border-amber-400/30">
             Tahun Ajaran 2026/2027
@@ -56,7 +56,7 @@
         </div>
 
         <!-- Bantuan Panitia -->
-        <div class="bg-gradient-to-br from-blue-900 to-slate-900 text-white p-8 rounded-3xl shadow-md flex flex-col justify-between space-y-4">
+        <div class="bg-linear-to-br from-blue-900 to-slate-900 text-white p-8 rounded-3xl shadow-md flex flex-col justify-between space-y-4">
             <div>
                 <span class="text-amber-400 text-xs font-bold uppercase">Layanan Informasi & Konsultasi</span>
                 <h3 class="text-xl font-extrabold text-white mt-1">Butuh Bantuan Pendaftaran?</h3>

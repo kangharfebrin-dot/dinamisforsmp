@@ -7,7 +7,7 @@
 
     <!-- 1. Running Announcement Bar -->
     @if(!empty($announcements) && count($announcements) > 0)
-    <div class="bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 text-blue-950 px-4 py-2.5 shadow-xs border-b border-amber-600/20">
+    <div class="bg-linear-to-r from-amber-500 via-amber-400 to-amber-500 text-blue-950 px-4 py-2.5 shadow-xs border-b border-amber-600/20">
         <div class="max-w-7xl mx-auto flex items-center justify-between gap-3 text-xs sm:text-sm font-semibold">
             <div class="flex items-center gap-2 overflow-hidden">
                 <span class="inline-flex items-center gap-1 bg-blue-950 text-amber-300 px-2 py-0.5 rounded text-[11px] font-bold shrink-0 uppercase tracking-wider">
@@ -27,7 +27,7 @@
     @endif
 
     <!-- 2. Hero Section (Identitas & Foto Utama) -->
-    <section class="relative bg-gradient-to-br from-blue-950 via-slate-900 to-blue-900 text-white overflow-hidden py-16 lg:py-24">
+    <section class="relative bg-linear-to-br from-blue-950 via-slate-900 to-blue-900 text-white overflow-hidden py-16 lg:py-24">
         <!-- Background Decorative Orbs -->
         <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -43,7 +43,7 @@
 
                     <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
                         Membangun Generasi <br class="hidden sm:inline">
-                        <span class="bg-gradient-to-r from-amber-300 via-amber-200 to-yellow-400 bg-clip-text text-transparent">
+                        <span class="bg-linear-to-r from-amber-300 via-amber-200 to-yellow-400 bg-clip-text text-transparent">
                             Cerdas & Berkarakter
                         </span>
                     </h1>
@@ -54,7 +54,7 @@
 
                     <!-- Call To Actions -->
                     <div class="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                        <a href="{{ route('ppdb') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-400 to-amber-500 text-blue-950 shadow-lg shadow-amber-400/20 hover:from-amber-300 hover:to-amber-400 hover:shadow-xl hover:shadow-amber-400/30 transition-all transform hover:-translate-y-0.5">
+                        <a href="{{ route('ppdb') }}" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl font-bold text-sm bg-linear-to-r from-amber-400 to-amber-500 text-blue-950 shadow-lg shadow-amber-400/20 hover:from-amber-300 hover:to-amber-400 hover:shadow-xl hover:shadow-amber-400/30 transition-all transform hover:-translate-y-0.5">
                             <svg class="w-5 h-5 text-blue-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                             Daftar PPDB 2026/2027
                         </a>
@@ -85,7 +85,7 @@
                 <div class="lg:col-span-5">
                     <div class="relative mx-auto max-w-md lg:max-w-none">
                         <!-- Card Border Glow -->
-                        <div class="absolute -inset-1.5 bg-gradient-to-r from-blue-600 via-amber-500 to-blue-500 rounded-3xl blur-lg opacity-40"></div>
+                        <div class="absolute -inset-1.5 bg-linear-to-r from-blue-600 via-amber-500 to-blue-500 rounded-3xl blur-lg opacity-40"></div>
                         
                         <div class="relative bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl space-y-6">
                             <div class="flex items-center justify-between pb-4 border-b border-slate-800">
@@ -151,13 +151,13 @@
     <!-- 3. Sambutan Singkat Kepala Sekolah -->
     <section class="py-16 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="bg-gradient-to-br from-slate-50 via-blue-50/40 to-slate-50 rounded-3xl p-8 sm:p-12 border border-blue-100 shadow-sm">
+            <div class="bg-linear-to-br from-slate-50 via-blue-50/40 to-slate-50 rounded-3xl p-8 sm:p-12 border border-blue-100 shadow-sm">
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
                     <!-- Photo & Badge -->
                     <div class="lg:col-span-4 text-center">
                         <div class="relative inline-block">
                             <!-- Background decoration -->
-                            <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl bg-gradient-to-tr from-blue-900 to-amber-400 p-1.5 shadow-xl">
+                            <div class="w-48 h-48 sm:w-56 sm:h-56 rounded-2xl bg-linear-to-tr from-blue-900 to-amber-400 p-1.5 shadow-xl">
                                 <div class="w-full h-full rounded-2xl bg-slate-100 overflow-hidden flex items-center justify-center text-slate-400">
                                     @if(!empty($profile['principal_photo']))
                                         <img src="{{ \App\Services\ApiClient::assetUrl($profile['principal_photo']) }}" alt="{{ $profile['principal_name'] ?? 'Kepala Sekolah' }}" class="w-full h-full object-cover">
@@ -194,7 +194,7 @@
                             Mewujudkan Ekosistem Pendidikan yang Humanis, Berkarakter & Adaptif
                         </h2>
                         <div class="relative">
-                            <svg class="absolute -top-2 -left-3 w-8 h-8 text-blue-200/60 -z-0" fill="currentColor" viewBox="0 0 32 32"><path d="M10 8v8H6c0 3.31 2.69 6 6 6v2c-4.41 0-8-3.59-8-8V8h6zm16 0v8h-4c0 3.31 2.69 6 6 6v2c-4.41 0-8-3.59-8-8V8h6z"/></svg>
+                            <svg class="absolute -top-2 -left-3 w-8 h-8 text-blue-200/60 z-0" fill="currentColor" viewBox="0 0 32 32"><path d="M10 8v8H6c0 3.31 2.69 6 6 6v2c-4.41 0-8-3.59-8-8V8h6zm16 0v8h-4c0 3.31 2.69 6 6 6v2c-4.41 0-8-3.59-8-8V8h6z"/></svg>
                             <p class="text-slate-600 text-sm sm:text-base leading-relaxed relative z-10 pl-4">
                                 {{ Str::limit($profile['principal_message'] ?? 'Puji syukur kita panjatkan ke hadirat Allah SWT atas karunia-Nya. Di era digital ini, kami terus berinovasi mewujudkan generasi cerdas berakhlak mulia.', 380) }}
                             </p>
@@ -238,7 +238,7 @@
                 @foreach($news as $post)
                 <article class="bg-white rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm hover:shadow-xl hover:border-blue-300 transition-all duration-300 flex flex-col group">
                     <!-- Image / Header -->
-                    <div class="relative h-48 bg-gradient-to-tr from-slate-800 to-blue-900 overflow-hidden flex items-center justify-center">
+                    <div class="relative h-48 bg-linear-to-tr from-slate-800 to-blue-900 overflow-hidden flex items-center justify-center">
                         @if(!empty($post['cover_image']))
                             <img src="{{ \App\Services\ApiClient::assetUrl($post['cover_image']) }}" alt="{{ $post['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
                         @else
@@ -253,7 +253,7 @@
                     </div>
 
                     <!-- Body -->
-                    <div class="p-5 flex flex-col flex-grow justify-between space-y-3">
+                    <div class="p-5 flex flex-col grow justify-between space-y-3">
                         <div class="space-y-2">
                             <div class="flex items-center gap-2 text-xs text-slate-400">
                                 <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
@@ -396,7 +396,7 @@
 
     <!-- 6. Prestasi Siswa Terkini Section -->
     @if(!empty($achievements) && count($achievements) > 0)
-    <section class="py-16 bg-gradient-to-b from-slate-50 to-blue-50/50">
+    <section class="py-16 bg-linear-to-b from-slate-50 to-blue-50/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-12 space-y-2">
                 <span class="text-xs font-bold uppercase tracking-wider text-amber-600 bg-amber-100/70 px-3 py-1 rounded-full">
@@ -436,7 +436,7 @@
     @endif
 
     <!-- 7. Call To Action (PPDB Online) -->
-    <section class="py-14 bg-gradient-to-r from-blue-900 via-blue-950 to-slate-900 text-white relative overflow-hidden">
+    <section class="py-14 bg-linear-to-r from-blue-900 via-blue-950 to-slate-900 text-white relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10 space-y-4">
             <span class="bg-amber-400 text-blue-950 text-xs font-extrabold px-3.5 py-1 rounded-full uppercase tracking-wider">
                 Penerimaan Peserta Didik Baru
@@ -448,7 +448,7 @@
                 Pendaftaran siswa baru tahun ajaran 2026/2027 telah dibuka melalui jalur Zonasi, Afirmasi, Prestasi, dan Perpindahan Tugas. Dapatkan pendidikan bermutu tanpa diskriminasi.
             </p>
             <div class="pt-4 flex flex-wrap justify-center gap-4">
-                <a href="{{ route('ppdb') }}" class="px-8 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-400 to-amber-500 text-blue-950 shadow-lg hover:from-amber-300 hover:to-amber-400 transition-all transform hover:-translate-y-0.5">
+                <a href="{{ route('ppdb') }}" class="px-8 py-3.5 rounded-xl font-bold text-sm bg-linear-to-r from-amber-400 to-amber-500 text-blue-950 shadow-lg hover:from-amber-300 hover:to-amber-400 transition-all transform hover:-translate-y-0.5">
                     Informasi & Syarat Pendaftaran PPDB
                 </a>
                 <a href="{{ route('kontak') }}" class="px-7 py-3.5 rounded-xl font-semibold text-sm bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 transition-all">

@@ -8,7 +8,7 @@
 <div class="space-y-8">
 
     <!-- Quick Action Shortcuts (PRD 8.3) -->
-    <div class="bg-gradient-to-r from-blue-900 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+    <div class="bg-linear-to-r from-blue-900 to-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div>
             <span class="bg-amber-400 text-slate-950 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Aksi Cepat Admin</span>
             <h2 class="text-xl sm:text-2xl font-extrabold mt-2">Kelola Konten & Informasi Sekolah</h2>

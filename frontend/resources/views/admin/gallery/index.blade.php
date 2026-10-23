@@ -114,7 +114,7 @@
             @forelse($photos as $photo)
             <div class="group relative rounded-xl overflow-hidden border border-slate-200 aspect-square bg-slate-100 flex flex-col justify-end">
                 <img src="{{ \App\Services\ApiClient::assetUrl($photo['image']) }}" alt="{{ $photo['title'] ?? 'Galeri' }}" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-3 flex flex-col justify-end">
+                <div class="absolute inset-0 bg-linear-to-t from-slate-950/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-3 flex flex-col justify-end">
                     <span class="text-white font-bold text-xs truncate">{{ $photo['title'] ?? 'Foto' }}</span>
                     @if(!empty($photo['album_name']))
                     <span class="text-slate-300 text-[10px] truncate">{{ $photo['album_name'] }}</span>
@@ -141,7 +141,7 @@
 </div>
 
 <!-- Modal Buat / Edit Album -->
-<div id="albumModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
+<div id="albumModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs items-center justify-center p-4 z-50 hidden">
     <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-xl border border-slate-200 text-xs">
         <h3 id="albumModalTitle" class="text-sm font-bold text-slate-900 mb-1">Buat Album Foto Baru</h3>
         <p class="text-slate-500 mb-4">Atur nama album dan deskripsi singkat.</p>
@@ -177,6 +177,7 @@ function openNewAlbumModal() {
     document.getElementById('modal_album_name').value = '';
     document.getElementById('modal_album_desc').value = '';
     modal.classList.remove('hidden');
+    modal.classList.add('flex');
 }
 
 function editAlbum(id, name, desc) {
@@ -190,10 +191,13 @@ function editAlbum(id, name, desc) {
     document.getElementById('modal_album_name').value = name;
     document.getElementById('modal_album_desc').value = desc;
     modal.classList.remove('hidden');
+    modal.classList.add('flex');
 }
 
 function closeAlbumModal() {
-    document.getElementById('albumModal').classList.add('hidden');
+    const modal = document.getElementById('albumModal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
 }
 </script>
 @endsection

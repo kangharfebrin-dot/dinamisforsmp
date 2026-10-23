@@ -5,7 +5,7 @@
 
 @section('content')
 <!-- Hero Header -->
-<section class="bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 text-white py-16 sm:py-20">
+<section class="bg-linear-to-b from-slate-900 via-blue-950 to-slate-900 text-white py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <span class="inline-block px-3 py-1 bg-amber-400/20 text-amber-300 font-extrabold text-xs uppercase tracking-wider rounded-full border border-amber-400/30 mb-3">
             Lingkungan Belajar

@@ -14,7 +14,7 @@
 <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-sm space-y-8">
         <div class="flex flex-col sm:flex-row items-center gap-6 pb-6 border-b border-slate-100 text-center sm:text-left">
-            <div class="w-24 h-24 rounded-2xl bg-gradient-to-tr from-blue-900 to-amber-400 p-1 shrink-0">
+            <div class="w-24 h-24 rounded-2xl bg-linear-to-tr from-blue-900 to-amber-400 p-1 shrink-0">
                 <div class="w-full h-full rounded-2xl bg-slate-100 overflow-hidden flex items-center justify-center">
                     @if(!empty($profile['principal_photo']))
                         <img src="{{ \App\Services\ApiClient::assetUrl($profile['principal_photo']) }}" alt="{{ $profile['principal_name'] ?? 'Kepala Sekolah' }}" class="w-full h-full object-cover">

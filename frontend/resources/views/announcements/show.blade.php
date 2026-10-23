@@ -4,7 +4,7 @@
 @section('meta_description', Str::limit(strip_tags($announcement['content']), 150))
 
 @section('content')
-<section class="bg-gradient-to-b from-slate-900 to-blue-950 text-white py-12">
+<section class="bg-linear-to-b from-slate-900 to-blue-950 text-white py-12">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <a href="{{ route('pengumuman.index') }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-300 hover:text-amber-200 mb-4 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
@@ -26,7 +26,7 @@
     </div>
 </section>
 
-<section class="py-12 bg-slate-50 flex-grow">
+<section class="py-12 bg-slate-50 grow">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-10 shadow-xs space-y-6">
             <!-- Isi Pengumuman -->

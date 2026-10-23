@@ -5,7 +5,7 @@
 
 @section('content')
 <!-- Hero Header -->
-<section class="bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 text-white py-16 sm:py-20">
+<section class="bg-linear-to-b from-slate-900 via-blue-950 to-slate-900 text-white py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <span class="inline-block px-3 py-1 bg-amber-400/20 text-amber-300 font-extrabold text-xs uppercase tracking-wider rounded-full border border-amber-400/30 mb-3">
             Dokumentasi Visual
@@ -18,7 +18,7 @@
 </section>
 
 <!-- Albums Grid & Photos -->
-<section class="py-12 bg-slate-50 flex-grow">
+<section class="py-12 bg-slate-50 grow">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <!-- Koleksi Foto Grid -->
         <div>
@@ -34,7 +34,7 @@
                 @forelse($galleries as $photo)
                 <div class="group relative rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 aspect-4/3 shadow-xs hover:shadow-xl transition-all duration-300">
                     <img src="{{ \App\Services\ApiClient::assetUrl($photo['image']) }}" alt="{{ $photo['title'] ?? 'Dokumentasi Sekolah' }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end">
+                    <div class="absolute inset-0 bg-linear-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-4 flex flex-col justify-end">
                         <span class="text-white font-bold text-xs sm:text-sm line-clamp-1">{{ $photo['title'] ?? 'Dokumentasi Sekolah' }}</span>
                         @if(!empty($photo['album_name']))
                         <span class="text-amber-300 text-[10px] font-semibold mt-0.5">{{ $photo['album_name'] }}</span>

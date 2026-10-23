@@ -5,7 +5,7 @@
 
 @section('content')
 <!-- Hero Header -->
-<section class="bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 text-white py-16 sm:py-20">
+<section class="bg-linear-to-b from-slate-900 via-blue-950 to-slate-900 text-white py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <span class="inline-block px-3 py-1 bg-amber-400/20 text-amber-300 font-extrabold text-xs uppercase tracking-wider rounded-full border border-amber-400/30 mb-3">
             Warta Sekolah
@@ -18,12 +18,12 @@
 </section>
 
 <!-- Content List -->
-<section class="py-12 bg-slate-50 flex-grow">
+<section class="py-12 bg-slate-50 grow">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         @forelse($announcements as $item)
         <article class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs hover:shadow-md transition-shadow">
             <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                <div class="space-y-2 flex-grow">
+                <div class="space-y-2 grow">
                     <div class="flex items-center gap-2 flex-wrap">
                         @if(($item['priority'] ?? 0) > 0)
                         <span class="px-2.5 py-0.5 bg-amber-100 text-amber-900 font-extrabold text-[11px] rounded-md border border-amber-200">

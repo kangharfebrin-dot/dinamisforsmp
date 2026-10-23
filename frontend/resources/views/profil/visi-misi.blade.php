@@ -13,7 +13,7 @@
 
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
     <!-- Visi Box -->
-    <div class="bg-gradient-to-r from-blue-900 via-blue-950 to-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-blue-800 space-y-4">
+    <div class="bg-linear-to-r from-blue-900 via-blue-950 to-slate-900 text-white rounded-3xl p-8 sm:p-12 shadow-xl border border-blue-800 space-y-4">
         <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400 text-blue-950 font-bold text-xs uppercase tracking-wider">
             Visi Sekolah
         </span>

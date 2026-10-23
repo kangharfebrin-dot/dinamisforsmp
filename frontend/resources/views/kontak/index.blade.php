@@ -30,7 +30,7 @@
                             📍
                         </div>
                         <div>
-                            <strong class="block text-slate-900 font-bold text-xs uppercase text-slate-400">Alamat Lengkap</strong>
+                            <strong class="block text-slate-500 font-bold text-xs uppercase tracking-wider">Alamat Lengkap</strong>
                             <p class="mt-0.5 leading-relaxed">{{ $profile['address'] ?? 'Jl. Kayen Baru No. 1, Desa Kayen, Kec. Juwangi, Kab. Boyolali, Jawa Tengah 57391' }}</p>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                             📞
                         </div>
                         <div>
-                            <strong class="block text-slate-900 font-bold text-xs uppercase text-slate-400">Telepon / Kontak</strong>
+                            <strong class="block text-slate-500 font-bold text-xs uppercase tracking-wider">Telepon / Kontak</strong>
                             <p class="mt-0.5">{{ $profile['phone'] ?? '085642696466' }}</p>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                             ✉️
                         </div>
                         <div>
-                            <strong class="block text-slate-900 font-bold text-xs uppercase text-slate-400">Email Resmi</strong>
+                            <strong class="block text-slate-500 font-bold text-xs uppercase tracking-wider">Email Resmi</strong>
                             <p class="mt-0.5">{{ $profile['email'] ?? 'smpn2juwang@gmail.com' }}</p>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                             ⏰
                         </div>
                         <div>
-                            <strong class="block text-slate-900 font-bold text-xs uppercase text-slate-400">Jam Layanan Pelayanan Tata Usaha</strong>
+                            <strong class="block text-slate-500 font-bold text-xs uppercase tracking-wider">Jam Layanan Pelayanan Tata Usaha</strong>
                             <p class="mt-0.5">Senin - Kamis: 07.00 - 14.30 WIB<br>Jumat: 07.00 - 11.30 WIB<br>Sabtu: 07.00 - 13.00 WIB</p>
                         </div>
                     </div>

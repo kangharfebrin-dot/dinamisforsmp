@@ -5,7 +5,7 @@
 
 @section('content')
 <!-- Hero Header -->
-<section class="bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 text-white py-16 sm:py-20">
+<section class="bg-linear-to-b from-slate-900 via-blue-950 to-slate-900 text-white py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <span class="inline-block px-3 py-1 bg-amber-400/20 text-amber-300 font-extrabold text-xs uppercase tracking-wider rounded-full border border-amber-400/30 mb-3">
             Pusat Dokumen
@@ -18,7 +18,7 @@
 </section>
 
 <!-- Filter Kategori & List Dokumen -->
-<section class="py-12 bg-slate-50 flex-grow">
+<section class="py-12 bg-slate-50 grow">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <!-- Kategori Filter -->
         <div class="flex items-center gap-2 overflow-x-auto pb-2 text-xs font-bold">

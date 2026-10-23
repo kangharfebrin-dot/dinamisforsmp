@@ -5,7 +5,7 @@
 
 @section('content')
 <!-- Hero Header -->
-<section class="bg-gradient-to-b from-slate-900 via-blue-950 to-slate-900 text-white py-16 sm:py-20">
+<section class="bg-linear-to-b from-slate-900 via-blue-950 to-slate-900 text-white py-16 sm:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <span class="inline-block px-3 py-1 bg-amber-400/20 text-amber-300 font-extrabold text-xs uppercase tracking-wider rounded-full border border-amber-400/30 mb-3">
             Kebanggaan Sekolah
@@ -18,7 +18,7 @@
 </section>
 
 <!-- Grid Prestasi -->
-<section class="py-12 bg-slate-50 flex-grow">
+<section class="py-12 bg-slate-50 grow">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             @forelse($achievements as $item)
@@ -29,7 +29,7 @@
                         @if(!empty($item['image']))
                         <img src="{{ \App\Services\ApiClient::assetUrl($item['image']) }}" alt="{{ $item['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         @else
-                        <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-amber-50 to-amber-100 text-amber-600">
+                        <div class="w-full h-full flex flex-col items-center justify-center bg-linear-to-br from-amber-50 to-amber-100 text-amber-600">
                             <span class="text-4xl font-bold">🏆</span>
                         </div>
                         @endif

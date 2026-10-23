@@ -45,7 +45,7 @@
                 @if(!empty($post['cover_image']))
                     <img src="{{ \App\Services\ApiClient::assetUrl($post['cover_image']) }}" alt="{{ $post['title'] }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
                 @else
-                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-slate-900 to-blue-900 text-slate-500">
+                    <div class="w-full h-full flex items-center justify-center bg-linear-to-tr from-slate-900 to-blue-900 text-slate-500">
                         <svg class="w-12 h-12 text-blue-300/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
                     </div>
                 @endif
@@ -54,7 +54,7 @@
                 </span>
             </div>
 
-            <div class="p-6 flex flex-col flex-grow justify-between space-y-4">
+            <div class="p-6 flex flex-col grow justify-between space-y-4">
                 <div class="space-y-2">
                     <div class="flex items-center gap-2 text-xs text-slate-400">
                         <span>{{ !empty($post['published_at']) ? date('d M Y', strtotime($post['published_at'])) : date('d M Y') }}</span>

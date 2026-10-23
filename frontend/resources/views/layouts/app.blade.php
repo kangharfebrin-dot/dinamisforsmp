@@ -60,7 +60,7 @@
                     @if(!empty($profile['logo']))
                     <img src="{{ \App\Services\ApiClient::assetUrl($profile['logo']) }}" alt="Logo" class="w-12 h-12 object-contain group-hover:scale-105 transition-transform">
                     @else
-                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-blue-900 to-blue-700 flex items-center justify-center text-white font-extrabold shadow-md shadow-blue-900/20 group-hover:scale-105 transition-transform">
+                    <div class="w-12 h-12 rounded-xl bg-linear-to-tr from-blue-900 to-blue-700 flex items-center justify-center text-white font-extrabold shadow-md shadow-blue-900/20 group-hover:scale-105 transition-transform">
                         <svg class="w-7 h-7 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                     </div>
                     @endif
@@ -139,7 +139,7 @@
                         Kontak
                     </a>
 
-                    <a href="{{ route('ppdb') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-xs bg-gradient-to-r from-amber-500 to-amber-400 text-blue-950 shadow-md shadow-amber-500/20 hover:from-amber-400 hover:to-amber-300 transition-all transform hover:-translate-y-0.5">
+                    <a href="{{ route('ppdb') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-xs bg-linear-to-r from-amber-500 to-amber-400 text-blue-950 shadow-md shadow-amber-500/20 hover:from-amber-400 hover:to-amber-300 transition-all transform hover:-translate-y-0.5">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                         Info PPDB 2026
                     </a>
@@ -185,7 +185,7 @@
     </header>
 
     <!-- Content Body -->
-    <main class="flex-grow">
+    <main class="grow">
         @yield('content')
     </main>
 
@@ -196,7 +196,7 @@
                 <!-- Col 1: Identitas -->
                 <div class="space-y-4">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-700 to-blue-500 flex items-center justify-center text-white font-bold">
+                        <div class="w-10 h-10 rounded-xl bg-linear-to-tr from-blue-700 to-blue-500 flex items-center justify-center text-white font-bold">
                             <svg class="w-6 h-6 text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                         </div>
                         <div>
